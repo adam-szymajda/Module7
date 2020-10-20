@@ -1,4 +1,4 @@
-import datetime
+import random
 
 class Movie():
     def __init__(self, title, year, genre):
@@ -35,6 +35,19 @@ def search(phrase):
     for title in temp:
         print(title)
 
+def generate_views():
+    title = random.choice(titles)
+    title.play(random.randrange(1, 100))
+
+def randomize_titles():
+    for i in range(10):
+        generate_views()
+
+def top_titles():
+    most_common = sorted(titles, key=lambda x: x.playbacks, reverse=True)
+    for title in most_common:
+        print(f'{title} {title.playbacks}')
+
 
 returnofthejedi = Movie(title='Return of the Jedi', year=1979, genre='Science Fiction')
 fellowshipofthering = Movie(title='Fellowship of the Ring', year=2002, genre='Fantasy')
@@ -67,3 +80,8 @@ search('Return oF')
 
 print('\n')
 search('house')
+
+randomize_titles()
+
+print('\n')
+top_titles()
