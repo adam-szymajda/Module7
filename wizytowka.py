@@ -104,9 +104,6 @@ else:
         name.contact()
 
 
-
-print('\n')
-
 # namelist_sorted_by_first_name = sorted(namelist, key=lambda name: name.firstname)
 # namelist_sorted_by_last_name = sorted(namelist, key=lambda name: name.lastname)
 # namelist_sorted_by_email = sorted(namelist, key=lambda name: name.email)
