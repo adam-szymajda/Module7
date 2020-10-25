@@ -80,22 +80,37 @@ class Library:
 
 
 if __name__ == '__main__':
-    library = Library([
-        Movie(title='Return of the Jedi', year=1979, genre='Science Fiction'),
-        Movie(title='Fellowship of the Ring', year=2002, genre='Fantasy'),
-        Movie(title='The Two Towers', year=2003, genre='Fantasy'),
-        Movie(title='Return of the King', year=2004, genre='Fantasy'),
-        Series(title='Dr House', year=2010, genre='drama', season=1, episode=1),
-        Series(title='Dr House', year=2010, genre='drama', season=1, episode=2),
-        Series(title='Dr House', year=2010, genre='drama', season=1, episode=3),
-        Series(title='Dr House', year=2010, genre='drama', season=1, episode=4),
-        Series(title='Dr House', year=2010, genre='drama', season=1, episode=5),
-        Series(title='Dr House', year=2010, genre='drama', season=1, episode=6),
-        Series(title='Dr House', year=2010, genre='drama', season=1, episode=7),
-        Series(title='The Witcher', year=2019, genre='fantasy', season=1, episode=1),
-    ])
-    library.titles.append(Series(title='The Witcher', year=2019, genre='fantasy', season=1, episode=3))
-    print(library.search('cher'))
+    library = Library()
+    with open("filmdb.txt", "r") as f:
+        while True:
+            line = f.readline()
+            if line:
+                line = line.split(',')
+                if line[3]:
+                    library.titles.append(Movie(title=line[0], year=line[1], genre=line[2]))
+                else:
+                    library.titles.append(Series(title=line[0], year=line[1], genre=line[2], season=line[3], episode=line[4]))
+            else:
+                break
+
+print(library)
+
+    # library = Library([
+    #     Movie(title='Return of the Jedi', year=1979, genre='Science Fiction'),
+    #     Movie(title='Fellowship of the Ring', year=2002, genre='Fantasy'),
+    #     Movie(title='The Two Towers', year=2003, genre='Fantasy'),
+    #     Movie(title='Return of the King', year=2004, genre='Fantasy'),
+    #     Series(title='Dr House', year=2010, genre='drama', season=1, episode=1),
+    #     Series(title='Dr House', year=2010, genre='drama', season=1, episode=2),
+    #     Series(title='Dr House', year=2010, genre='drama', season=1, episode=3),
+    #     Series(title='Dr House', year=2010, genre='drama', season=1, episode=4),
+    #     Series(title='Dr House', year=2010, genre='drama', season=1, episode=5),
+    #     Series(title='Dr House', year=2010, genre='drama', season=1, episode=6),
+    #     Series(title='Dr House', year=2010, genre='drama', season=1, episode=7),
+    #     Series(title='The Witcher', year=2019, genre='fantasy', season=1, episode=1),
+    # ])
+    # library.titles.append(Series(title='The Witcher', year=2019, genre='fantasy', season=1, episode=3))
+    # print(library.search('cher'))
 
 
 # library = Library()
