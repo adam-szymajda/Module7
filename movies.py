@@ -50,8 +50,33 @@ def as_sorted(f):
 
 
 class Library:
+    # def __init__(self, titles=None):
+    #     if titles is None:
+    #         self.titles = []
+    #     else:
+    #         self.titles = [*titles]
+
     def __init__(self, titles):
         self.titles = [*titles]
+
+    @classmethod
+    def load_db(cls, file):
+        library = []
+        with open(file, "r") as f:
+            while True:
+                line = f.readline()
+                if line:
+                    line = line.split(',')
+                    print(line)
+                    print(len(line))
+                    if len(line) <= 3:
+                        library.append(Movie(title=line[0], year=line[1], genre=line[2]))
+                    else:
+                        library.append(Series(title=line[0], year=line[1], genre=line[2], season=int(line[3]), episode=int(line[4])))
+                else:
+                    break
+        return cls(library)
+
 
     @as_sorted
     def get_series(self):
@@ -80,20 +105,8 @@ class Library:
 
 
 if __name__ == '__main__':
-    library = Library()
-    with open("filmdb.txt", "r") as f:
-        while True:
-            line = f.readline()
-            if line:
-                line = line.split(',')
-                if line[3]:
-                    library.titles.append(Movie(title=line[0], year=line[1], genre=line[2]))
-                else:
-                    library.titles.append(Series(title=line[0], year=line[1], genre=line[2], season=line[3], episode=line[4]))
-            else:
-                break
 
-print(library)
+    library = Library.load_db('filmdb.txt')
 
     # library = Library([
     #     Movie(title='Return of the Jedi', year=1979, genre='Science Fiction'),
@@ -114,16 +127,20 @@ print(library)
 
 
 # library = Library()
-# for item in library.get_series():
-#     print(item)
-# print('\n')
-# for item in library.get_movies():
-#     print(item)
-# print('\n')
-# library.search('house')
-# library.randomize_titles()
-# print('\n')
-# library.top_titles()
+for item in library.get_series():
+    print(item)
+
+print('\n')
+for item in library.get_movies():
+    print(item)
+
+print('\n')
+for item in library.search('cher'):
+    print(item)
+print('\n')
+library.randomize_titles()
+print('\n')
+library.top_titles()
 
 # print('\n')
 # search('Return oF')
